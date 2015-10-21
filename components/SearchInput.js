@@ -3,6 +3,7 @@
 'use strict';
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var KeyboardAccelerators = require('../mixins/KeyboardAccelerators');
 var Drop = require('../utils/Drop');
 var SearchIcon = require('./icons/Search');
@@ -79,7 +80,7 @@ var SearchInput = React.createClass({
       document.addEventListener('click', this._onRemoveDrop);
       this.startListeningToKeyboard(activeKeyboardHandlers);
 
-      this._drop = Drop.add(this.refs.component.getDOMNode(), this._renderDrop(), { top: 'bottom', left: 'left' });
+      this._drop = Drop.add(ReactDOM.findDOMNode(this.refs.component), this._renderDrop(), { top: 'bottom', left: 'left' });
     } else if (this.state.dropActive && prevState.dropActive) {
       this._drop.render(this._renderDrop());
     }
@@ -130,7 +131,7 @@ var SearchInput = React.createClass({
   },
 
   _onFocus: function _onFocus() {
-    this.refs.input.getDOMNode().select();
+    ReactDOM.findDOMNode(this.refs.input).select();
     this.setState({
       focused: true,
       dropActive: false,

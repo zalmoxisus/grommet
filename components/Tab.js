@@ -3,6 +3,7 @@
 'use strict';
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 
 var KeyboardAccelerators = require('../mixins/KeyboardAccelerators');
 
@@ -32,7 +33,7 @@ var Tab = React.createClass({
   },
 
   _processSpace: function _processSpace(event) {
-    if (event.target === this.refs.tab.getDOMNode()) {
+    if (event.target === ReactDOM.findDOMNode(this.refs.tab)) {
       this._onClickTab(event);
     }
   },
