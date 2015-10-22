@@ -52,16 +52,11 @@ var App = React.createClass({
       classes.push(this.props.className);
     }
 
-    //remove this when React 0.14 is released. This is required because context props are not being propagated to children.
-    var children = React.Children.map(this.props.children, (function (child) {
-      return React.isValidElement(child) ? React.cloneElement(child, this.getChildContext()) : child;
-    }).bind(this));
-
     return React.createElement(
       'div',
       { lang: this.state.lang, className: classes.join(' ') },
       React.createElement(SkipLinks, null),
-      children
+      this.props.children
     );
   }
 });
