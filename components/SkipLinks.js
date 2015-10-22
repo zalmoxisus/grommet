@@ -4,15 +4,15 @@
 
 var React = require('react');
 var ReactDOM = require('react-dom');
+var ReactIntl = require('react-intl');
+var FormattedMessage = ReactIntl.FormattedMessage;
+
 var Layer = require('./Layer');
 var Menu = require('./Menu');
 var DOM = require('../utils/DOM');
-var IntlMixin = require('../mixins/GrommetIntlMixin');
 
 var SkipLinks = React.createClass({
   displayName: 'SkipLinks',
-
-  mixins: [IntlMixin],
 
   getInitialState: function getInitialState() {
     return { anchors: [], showLayer: false };
@@ -67,6 +67,9 @@ var SkipLinks = React.createClass({
   },
 
   render: function render() {
+
+    var skipToLabel = React.createElement(FormattedMessage, { id: 'Skip to', defaultMessage: 'Skip to' });
+
     var anchorElements = this.state.anchors.map((function (anchor, index) {
       return React.createElement(
         'a',
@@ -76,7 +79,7 @@ var SkipLinks = React.createClass({
           onBlur: this._onBlur,
           onClick: this._onClick(anchor.id),
           key: anchor.id,
-          'aria-label': this.getGrommetIntlMessage('Skip to') + ' ' + anchor.label },
+          'aria-label': skipToLabel + anchor.label },
         anchor.label
       );
     }).bind(this));
@@ -93,7 +96,7 @@ var SkipLinks = React.createClass({
           React.createElement(
             'h2',
             null,
-            this.getGrommetIntlMessage('Skip to'),
+            skipToLabel,
             ':'
           ),
           React.createElement(

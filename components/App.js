@@ -5,7 +5,6 @@
 var React = require('react');
 var SkipLinks = require('./SkipLinks');
 
-var IntlMixin = require('../mixins/GrommetIntlMixin');
 var Locale = require('../utils/Locale');
 
 var App = React.createClass({
@@ -14,8 +13,6 @@ var App = React.createClass({
   propTypes: {
     centered: React.PropTypes.bool
   },
-
-  mixins: [IntlMixin],
 
   getDefaultProps: function getDefaultProps() {
     return {

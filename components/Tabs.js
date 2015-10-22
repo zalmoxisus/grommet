@@ -3,8 +3,8 @@
 'use strict';
 
 var React = require('react');
-
-var IntlMixin = require('../mixins/GrommetIntlMixin');
+var ReactIntl = require('react-intl');
+var FormattedMessage = ReactIntl.FormattedMessage;
 
 var Box = require('./Box');
 
@@ -16,8 +16,6 @@ var Tabs = React.createClass({
   propTypes: {
     activeIndex: React.PropTypes.number
   },
-
-  mixins: [IntlMixin],
 
   getDefaultProps: function getDefaultProps() {
     return {
@@ -61,6 +59,8 @@ var Tabs = React.createClass({
       });
     }).bind(this));
 
+    var tabContentsLabel = React.createElement(FormattedMessage, { id: 'Tab Contents', defaultMessage: 'Tab Contents' });
+
     return React.createElement(
       'div',
       { role: 'tablist' },
@@ -76,7 +76,7 @@ var Tabs = React.createClass({
         React.createElement(
           'title',
           { id: 'content_description' },
-          activeTitle + ' ' + this.getGrommetIntlMessage('Tab Contents')
+          activeTitle + ' ' + tabContentsLabel
         ),
         React.createElement(
           Box,

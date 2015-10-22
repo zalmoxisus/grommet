@@ -3,7 +3,8 @@
 'use strict';
 
 var React = require('react');
-var IntlMixin = require('../../../mixins/GrommetIntlMixin');
+var ReactIntl = require('react-intl');
+var FormattedMessage = ReactIntl.FormattedMessage;
 
 var Disabled = React.createClass({
   displayName: 'Disabled',
@@ -12,18 +13,16 @@ var Disabled = React.createClass({
     a11yTitle: React.PropTypes.string
   },
 
-  mixins: [IntlMixin],
-
   render: function render() {
     var className = 'status-icon status-icon-disabled';
-    var a11yTitle = this.getGrommetIntlMessage(this.props.a11yTitle);
+    var a11yTitle = this.props.a11yTitle;
     if (this.props.className) {
       className += ' ' + this.props.className;
     }
     if (typeof this.props.a11yTitle === "undefined") {
       // this.props.a11yTitle emplty string is an acceptable value. Only if undefined
       // should use the default title value.
-      a11yTitle = this.getGrommetIntlMessage('Disabled');
+      a11yTitle = 'Disabled';
     }
     var disabledTitleId = 'disabled-title';
     return React.createElement(
@@ -32,7 +31,7 @@ var Disabled = React.createClass({
       React.createElement(
         'title',
         { id: disabledTitleId },
-        a11yTitle
+        React.createElement(FormattedMessage, { id: a11yTitle, defaultMessage: a11yTitle })
       ),
       React.createElement(
         'g',

@@ -3,7 +3,8 @@
 'use strict';
 
 var React = require('react');
-var IntlMixin = require('../mixins/GrommetIntlMixin');
+var ReactIntl = require('react-intl');
+var FormattedMessage = ReactIntl.FormattedMessage;
 
 var CLASS_ROOT = "legend";
 
@@ -26,8 +27,6 @@ var Legend = React.createClass({
     units: React.PropTypes.string,
     value: React.PropTypes.number
   },
-
-  mixins: [IntlMixin],
 
   getInitialState: function getInitialState() {
     return { activeIndex: this.props.activeIndex };
@@ -124,7 +123,7 @@ var Legend = React.createClass({
         React.createElement(
           'span',
           { className: CLASS_ROOT + "__total-label" },
-          this.getGrommetIntlMessage('Total')
+          React.createElement(FormattedMessage, { id: 'Total', defaultMessage: 'Total' })
         ),
         React.createElement(
           'span',

@@ -3,11 +3,13 @@
 'use strict';
 
 var React = require('react');
+var ReactIntl = require('react-intl');
+var FormattedMessage = ReactIntl.FormattedMessage;
+
 var Form = require('./Form');
 var FormField = require('./FormField');
 var CheckBox = require('./CheckBox');
 var Button = require('./Button');
-var IntlMixin = require('../mixins/GrommetIntlMixin');
 var CLASS_ROOT = "login-form";
 
 var LoginForm = React.createClass({
@@ -23,8 +25,6 @@ var LoginForm = React.createClass({
     errors: React.PropTypes.arrayOf(React.PropTypes.string),
     onSubmit: React.PropTypes.func
   },
-
-  mixins: [IntlMixin],
 
   getDefaultProps: function getDefaultProps() {
     return {
@@ -53,7 +53,7 @@ var LoginForm = React.createClass({
       return React.createElement(
         'div',
         { key: index, className: CLASS_ROOT + "__error" },
-        this.getGrommetIntlMessage(error)
+        React.createElement(FormattedMessage, { id: error, defaultMessage: error })
       );
     }).bind(this));
 
@@ -88,10 +88,11 @@ var LoginForm = React.createClass({
       );
     }
 
+    var rememberMeLabel = React.createElement(FormattedMessage, { id: 'Remember me', defaultMessage: 'Remember me' });
     var rememberMe = null;
     if (this.props.rememberMe) {
       rememberMe = React.createElement(CheckBox, { className: CLASS_ROOT + "__remember-me",
-        id: 'remember-me', label: this.getGrommetIntlMessage('Remember me') });
+        id: 'remember-me', label: rememberMeLabel });
     }
 
     var footer = null;
@@ -102,6 +103,10 @@ var LoginForm = React.createClass({
         this.props.forgotPassword
       );
     }
+
+    var usernameLabel = React.createElement(FormattedMessage, { id: 'Username', defaultMessage: 'Username' });
+    var passwordLabel = React.createElement(FormattedMessage, { id: 'Password', defaultMessage: 'Password' });
+    var loginLabel = React.createElement(FormattedMessage, { id: 'Log In', defaultMessage: 'Log In' });
 
     return React.createElement(
       Form,
@@ -114,19 +119,19 @@ var LoginForm = React.createClass({
         null,
         React.createElement(
           FormField,
-          { htmlFor: 'username', label: this.getGrommetIntlMessage('Username') },
+          { htmlFor: 'username', label: usernameLabel },
           React.createElement('input', { id: 'username', ref: 'username', type: this.props.usernameType })
         ),
         React.createElement(
           FormField,
-          { htmlFor: 'password', label: this.getGrommetIntlMessage('Password') },
+          { htmlFor: 'password', label: passwordLabel },
           React.createElement('input', { id: 'password', ref: 'password', type: 'password' })
         )
       ),
       errors,
       rememberMe,
       React.createElement(Button, { id: CLASS_ROOT + "__submit", className: CLASS_ROOT + "__submit", primary: true, strong: true,
-        type: 'submit', label: this.getGrommetIntlMessage('Log In'),
+        type: 'submit', label: loginLabel,
         onClick: this._onSubmit }),
       footer
     );

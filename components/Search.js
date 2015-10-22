@@ -3,11 +3,13 @@
 'use strict';
 
 var React = require('react');
+var ReactIntl = require('react-intl');
+var FormattedMessage = ReactIntl.FormattedMessage;
+
 var KeyboardAccelerators = require('../utils/KeyboardAccelerators');
 var Drop = require('../utils/Drop');
 var Responsive = require('../utils/Responsive');
 var SearchIcon = require('./icons/Search');
-var IntlMixin = require('../mixins/GrommetIntlMixin');
 
 var CLASS_ROOT = "search";
 
@@ -26,8 +28,6 @@ var Search = React.createClass({
     suggestions: React.PropTypes.arrayOf(React.PropTypes.string),
     value: React.PropTypes.string
   },
-
-  mixins: [IntlMixin],
 
   getDefaultProps: function getDefaultProps() {
     return {
@@ -299,11 +299,14 @@ var Search = React.createClass({
 
       var readOnly = this.props.suggestions ? true : false;
 
+      var placeholderLabel = React.createElement(FormattedMessage, { id: this.props.placeHolder,
+        defaultMessage: this.props.placeHolder });
+
       return React.createElement(
         'div',
         { className: classes.join(' ') },
         React.createElement('input', { ref: 'input', type: 'search',
-          placeholder: this.getGrommetIntlMessage(this.props.placeHolder),
+          placeholder: placeholderLabel,
           defaultValue: this.props.defaultValue,
           value: this.props.value,
           className: CLASS_ROOT + "__input",

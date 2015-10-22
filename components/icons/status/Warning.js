@@ -3,7 +3,8 @@
 'use strict';
 
 var React = require('react');
-var IntlMixin = require('../../../mixins/GrommetIntlMixin');
+var ReactIntl = require('react-intl');
+var FormattedMessage = ReactIntl.FormattedMessage;
 
 var Warning = React.createClass({
   displayName: 'Warning',
@@ -12,17 +13,16 @@ var Warning = React.createClass({
     a11yTitle: React.PropTypes.string
   },
 
-  mixins: [IntlMixin],
   render: function render() {
     var className = 'status-icon status-icon-warning';
-    var a11yTitle = this.getGrommetIntlMessage(this.props.a11yTitle);
+    var a11yTitle = this.props.a11yTitle;
     if (this.props.className) {
       className += ' ' + this.props.className;
     }
     if (typeof this.props.a11yTitle === "undefined") {
       // this.props.a11yTitle emplty string is an acceptable value. Only if undefined
       // should use the default title value.
-      a11yTitle = this.getGrommetIntlMessage('Warning');
+      a11yTitle = 'Warning';
     }
     var warningTitleId = 'warning-title';
     return React.createElement(
@@ -31,7 +31,7 @@ var Warning = React.createClass({
       React.createElement(
         'title',
         { id: warningTitleId },
-        a11yTitle
+        React.createElement(FormattedMessage, { id: a11yTitle, defaultMessage: a11yTitle })
       ),
       React.createElement(
         'g',

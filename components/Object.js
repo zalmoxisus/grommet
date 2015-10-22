@@ -3,7 +3,8 @@
 'use strict';
 
 var React = require('react');
-var IntlMixin = require('../mixins/GrommetIntlMixin');
+var ReactIntl = require('react-intl');
+var FormattedMessage = ReactIntl.FormattedMessage;
 
 var CLASS_ROOT = "object";
 
@@ -13,8 +14,6 @@ var GrommetObject = React.createClass({
   propTypes: {
     data: React.PropTypes.object
   },
-
-  mixins: [IntlMixin],
 
   _renderArray: function _renderArray(array) {
     return array.map(function (item, index) {
@@ -59,12 +58,12 @@ var GrommetObject = React.createClass({
           React.createElement(
             'span',
             { className: CLASS_ROOT + "__attribute-name" },
-            this.getGrommetIntlMessage(name)
+            React.createElement(FormattedMessage, { id: name, defaultMessage: name })
           ),
           React.createElement(
             'span',
             { className: CLASS_ROOT + "__attribute-value" },
-            this.getGrommetIntlMessage(value)
+            React.createElement(FormattedMessage, { id: value, defaultMessage: value })
           )
         ));
       }

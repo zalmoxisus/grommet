@@ -3,9 +3,8 @@
 'use strict';
 
 var React = require('react');
-var ReactDOM = require('react-dom');
 
-var KeyboardAccelerators = require('../mixins/KeyboardAccelerators');
+var KeyboardAccelerators = require('../utils/KeyboardAccelerators');
 
 var CLASS_ROOT = "tab";
 
@@ -18,22 +17,20 @@ var Tab = React.createClass({
     id: React.PropTypes.string
   },
 
-  mixins: [KeyboardAccelerators],
-
   componentDidMount: function componentDidMount() {
-    this.startListeningToKeyboard({
+    KeyboardAccelerators.startListeningToKeyboard(this, {
       space: this._processSpace
     });
   },
 
   componentWillUnmount: function componentWillUnmount() {
-    this.stopListeningToKeyboard({
+    KeyboardAccelerators.stopListeningToKeyboard(this, {
       space: this._processSpace
     });
   },
 
   _processSpace: function _processSpace(event) {
-    if (event.target === ReactDOM.findDOMNode(this.refs.tab)) {
+    if (event.target === this.refs.tab) {
       this._onClickTab(event);
     }
   },

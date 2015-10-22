@@ -3,7 +3,8 @@
 'use strict';
 
 var React = require('react');
-var IntlMixin = require('../../../mixins/GrommetIntlMixin');
+var ReactIntl = require('react-intl');
+var FormattedMessage = ReactIntl.FormattedMessage;
 
 var CLASS_ROOT = "control-icon";
 
@@ -16,8 +17,6 @@ var Icon = React.createClass({
     colorIndex: React.PropTypes.string,
     large: React.PropTypes.bool
   },
-
-  mixins: [IntlMixin],
 
   getDefaultProps: function getDefaultProps() {
     return {
@@ -37,7 +36,8 @@ var Icon = React.createClass({
       classes.push(this.props.className);
     }
 
-    var a11yTitle = this.getGrommetIntlMessage(typeof this.props.a11yTitle !== "undefined" ? this.props.a11yTitle : "payment-google-wallet");
+    var titleLabel = typeof this.props.a11yTitle !== "undefined" ? this.props.a11yTitle : "payment-google-wallet";
+    var a11yTitle = React.createElement(FormattedMessage, { id: titleLabel, defaultMessage: titleLabel });
 
     return React.createElement(
       'svg',
