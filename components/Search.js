@@ -3,8 +3,6 @@
 'use strict';
 
 var React = require('react');
-var ReactIntl = require('react-intl');
-var FormattedMessage = ReactIntl.FormattedMessage;
 
 var KeyboardAccelerators = require('../utils/KeyboardAccelerators');
 var Drop = require('../utils/Drop');
@@ -27,6 +25,10 @@ var Search = React.createClass({
     responsive: React.PropTypes.bool,
     suggestions: React.PropTypes.arrayOf(React.PropTypes.string),
     value: React.PropTypes.string
+  },
+
+  contextTypes: {
+    intl: React.PropTypes.object.isRequired
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -299,8 +301,8 @@ var Search = React.createClass({
 
       var readOnly = this.props.suggestions ? true : false;
 
-      var placeholderLabel = React.createElement(FormattedMessage, { id: this.props.placeHolder,
-        defaultMessage: this.props.placeHolder });
+      var placeholderLabel = this.context.intl.formatMessage({
+        id: this.props.placeHolder, defaultMessage: this.props.placeHolder });
 
       return React.createElement(
         'div',

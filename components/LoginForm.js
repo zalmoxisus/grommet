@@ -26,6 +26,10 @@ var LoginForm = React.createClass({
     onSubmit: React.PropTypes.func
   },
 
+  contextTypes: {
+    intl: React.PropTypes.object.isRequired
+  },
+
   getDefaultProps: function getDefaultProps() {
     return {
       errors: [],
@@ -88,7 +92,9 @@ var LoginForm = React.createClass({
       );
     }
 
-    var rememberMeLabel = React.createElement(FormattedMessage, { id: 'Remember me', defaultMessage: 'Remember me' });
+    var rememberMeLabel = this.context.intl.formatMessage({
+      id: "Remember me", defaultMessage: "Remember me"
+    });
     var rememberMe = null;
     if (this.props.rememberMe) {
       rememberMe = React.createElement(CheckBox, { className: CLASS_ROOT + "__remember-me",
@@ -104,9 +110,15 @@ var LoginForm = React.createClass({
       );
     }
 
-    var usernameLabel = React.createElement(FormattedMessage, { id: 'Username', defaultMessage: 'Username' });
-    var passwordLabel = React.createElement(FormattedMessage, { id: 'Password', defaultMessage: 'Password' });
-    var loginLabel = React.createElement(FormattedMessage, { id: 'Log In', defaultMessage: 'Log In' });
+    var usernameLabel = this.context.intl.formatMessage({
+      id: "Username", defaultMessage: "Username"
+    });
+    var passwordLabel = this.context.intl.formatMessage({
+      id: "Password", defaultMessage: "Password"
+    });
+    var loginLabel = this.context.intl.formatMessage({
+      id: "Log In", defaultMessage: "Log In"
+    });
 
     return React.createElement(
       Form,

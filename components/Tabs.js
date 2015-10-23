@@ -3,8 +3,6 @@
 'use strict';
 
 var React = require('react');
-var ReactIntl = require('react-intl');
-var FormattedMessage = ReactIntl.FormattedMessage;
 
 var Box = require('./Box');
 
@@ -15,6 +13,10 @@ var Tabs = React.createClass({
 
   propTypes: {
     activeIndex: React.PropTypes.number
+  },
+
+  contextTypes: {
+    intl: React.PropTypes.object.isRequired
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -59,7 +61,9 @@ var Tabs = React.createClass({
       });
     }).bind(this));
 
-    var tabContentsLabel = React.createElement(FormattedMessage, { id: 'Tab Contents', defaultMessage: 'Tab Contents' });
+    var tabContentsLabel = this.context.intl.formatMessage({
+      id: "Tab Contents", defaultMessage: "Tab Contents"
+    });
 
     return React.createElement(
       'div',
