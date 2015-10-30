@@ -1,4 +1,4 @@
-// (C) Copyright 2014-2015 Hewlett-Packard Development Company, L.P.
+// (C) Copyright 2014-2015 Hewlett Packard Enterprise Development LP
 
 'use strict';
 
@@ -24,10 +24,6 @@ var LoginForm = React.createClass({
     forgotPassword: React.PropTypes.node,
     errors: React.PropTypes.arrayOf(React.PropTypes.string),
     onSubmit: React.PropTypes.func
-  },
-
-  contextTypes: {
-    intl: React.PropTypes.object.isRequired
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -61,7 +57,7 @@ var LoginForm = React.createClass({
       );
     }).bind(this));
 
-    var logo = null;
+    var logo;
     if (this.props.logo) {
       logo = React.createElement(
         'div',
@@ -70,7 +66,7 @@ var LoginForm = React.createClass({
       );
     }
 
-    var title = null;
+    var title;
     if (this.props.title) {
       title = React.createElement(
         'h1',
@@ -83,7 +79,7 @@ var LoginForm = React.createClass({
       );
     }
 
-    var secondaryText = null;
+    var secondaryText;
     if (this.props.secondaryText) {
       secondaryText = React.createElement(
         'p',
@@ -92,16 +88,15 @@ var LoginForm = React.createClass({
       );
     }
 
-    var rememberMeLabel = this.context.intl.formatMessage({
-      id: "Remember me", defaultMessage: "Remember me"
-    });
-    var rememberMe = null;
+    var rememberMe;
     if (this.props.rememberMe) {
+
       rememberMe = React.createElement(CheckBox, { className: CLASS_ROOT + "__remember-me",
-        id: 'remember-me', label: rememberMeLabel });
+        id: 'remember-me',
+        label: React.createElement(FormattedMessage, { id: 'Remember me', defaultMessage: 'Remember me' }) });
     }
 
-    var footer = null;
+    var footer;
     if (this.props.forgotPassword) {
       footer = React.createElement(
         'div',
@@ -110,15 +105,9 @@ var LoginForm = React.createClass({
       );
     }
 
-    var usernameLabel = this.context.intl.formatMessage({
-      id: "Username", defaultMessage: "Username"
-    });
-    var passwordLabel = this.context.intl.formatMessage({
-      id: "Password", defaultMessage: "Password"
-    });
-    var loginLabel = this.context.intl.formatMessage({
-      id: "Log In", defaultMessage: "Log In"
-    });
+    var username = React.createElement(FormattedMessage, { id: 'Username', defaultMessage: 'Username' });
+    var password = React.createElement(FormattedMessage, { id: 'Password', defaultMessage: 'Password' });
+    var login = React.createElement(FormattedMessage, { id: 'Log In', defaultMessage: 'Log In' });
 
     return React.createElement(
       Form,
@@ -131,19 +120,19 @@ var LoginForm = React.createClass({
         null,
         React.createElement(
           FormField,
-          { htmlFor: 'username', label: usernameLabel },
+          { htmlFor: 'username', label: username },
           React.createElement('input', { id: 'username', ref: 'username', type: this.props.usernameType })
         ),
         React.createElement(
           FormField,
-          { htmlFor: 'password', label: passwordLabel },
+          { htmlFor: 'password', label: password },
           React.createElement('input', { id: 'password', ref: 'password', type: 'password' })
         )
       ),
       errors,
       rememberMe,
-      React.createElement(Button, { id: CLASS_ROOT + "__submit", className: CLASS_ROOT + "__submit", primary: true, strong: true,
-        type: 'submit', label: loginLabel,
+      React.createElement(Button, { id: CLASS_ROOT + "__submit", className: CLASS_ROOT + "__submit",
+        primary: true, strong: true, type: 'submit', label: login,
         onClick: this._onSubmit }),
       footer
     );

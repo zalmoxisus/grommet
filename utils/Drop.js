@@ -1,4 +1,4 @@
-// (C) Copyright 2014 Hewlett-Packard Development Company, L.P.
+// (C) Copyright 2014 Hewlett Packard Enterprise Development LP
 
 'use strict';
 
@@ -50,6 +50,7 @@ var Drop = {
     if (align && align.right && HORIZONTAL_ALIGN_OPTIONS.indexOf(align.right) === -1) {
       console.warn("Warning: Invalid align.right value '" + align.right + "' supplied to Drop," + "expected one of [" + HORIZONTAL_ALIGN_OPTIONS.join(',') + "]");
     }
+    align = align || {};
 
     // initialize data
     var drop = {
@@ -70,12 +71,7 @@ var Drop = {
 
     // setup DOM
     drop.container = document.createElement('div');
-    if (drop.container.classList) {
-      drop.container.classList.add('drop');
-    } else {
-      // unit test version
-      drop.container.className += ' drop';
-    }
+    drop.container.className = 'drop';
     document.body.appendChild(drop.container);
     ReactDOM.render(content, drop.container);
 

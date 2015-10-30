@@ -1,9 +1,8 @@
-// (C) Copyright 2014-2015 Hewlett-Packard Development Company, L.P.
+// (C) Copyright 2014-2015 Hewlett Packard Enterprise Development LP
 
 'use strict';
 
 var React = require('react');
-var IntlProvider = require('react-intl').IntlProvider;
 var Locale = require('../utils/Locale');
 var SkipLinks = require('./SkipLinks');
 
@@ -23,21 +22,36 @@ if (!localesSupported()) {
   Intl.DateTimeFormat = IntlPolyfill.DateTimeFormat;
 }
 
-var Locale = require('../utils/Locale');
-
 var App = React.createClass({
   displayName: 'App',
 
   propTypes: {
-    centered: React.PropTypes.bool,
-    locale: React.PropTypes.string,
-    messages: React.PropTypes.object
+    centered: React.PropTypes.bool
   },
 
   getDefaultProps: function getDefaultProps() {
     return {
       centered: true
     };
+  },
+
+  getInitialState: function getInitialState() {
+    return {
+      lang: 'en-US'
+    };
+  },
+
+  componentDidMount: function componentDidMount() {
+    var lang = Locale.getCurrentLocale();
+    if (this.props.lang) {
+      lang = this.props.lang;
+    }
+
+    if (!document.documentElement.getAttribute('lang')) {
+      document.documentElement.setAttribute('lang', lang);
+    }
+
+    this.setState({ lang: lang });
   },
 
   render: function render() {
@@ -53,17 +67,11 @@ var App = React.createClass({
       classes.push(this.props.className);
     }
 
-    var localeData = Locale.getLocaleData(this.props.messages || {}, this.props.locale);
-
     return React.createElement(
-      IntlProvider,
-      { locale: localeData.locale, messages: localeData.messages },
-      React.createElement(
-        'div',
-        { lang: localeData.locale, className: classes.join(' ') },
-        React.createElement(SkipLinks, null),
-        this.props.children
-      )
+      'div',
+      { lang: this.state.lang, className: classes.join(' ') },
+      React.createElement(SkipLinks, null),
+      this.props.children
     );
   }
 });

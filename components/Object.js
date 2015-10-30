@@ -1,10 +1,8 @@
-// (C) Copyright 2014-2015 Hewlett-Packard Development Company, L.P.
+// (C) Copyright 2014-2015 Hewlett Packard Enterprise Development LP
 
 'use strict';
 
 var React = require('react');
-var ReactIntl = require('react-intl');
-var FormattedMessage = ReactIntl.FormattedMessage;
 
 var CLASS_ROOT = "object";
 
@@ -58,12 +56,12 @@ var GrommetObject = React.createClass({
           React.createElement(
             'span',
             { className: CLASS_ROOT + "__attribute-name" },
-            React.createElement(FormattedMessage, { id: name, defaultMessage: name })
+            name
           ),
           React.createElement(
             'span',
             { className: CLASS_ROOT + "__attribute-value" },
-            React.createElement(FormattedMessage, { id: value, defaultMessage: value })
+            value
           )
         ));
       }
