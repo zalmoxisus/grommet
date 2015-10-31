@@ -3,7 +3,7 @@
 'use strict';
 
 var React = require('react');
-var FormattedMessage = require('react-intl').FormattedMessage;
+var FormattedMessage = require('./FormattedMessage');
 var Box = require('./Box');
 
 var CLASS_ROOT = "tabs";
