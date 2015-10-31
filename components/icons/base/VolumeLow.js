@@ -3,8 +3,7 @@
 'use strict';
 
 var React = require('react');
-var ReactIntl = require('react-intl');
-var FormattedMessage = ReactIntl.FormattedMessage;
+var FormattedMessage = require('../../../components/FormattedMessage');
 
 var CLASS_ROOT = "control-icon";
 

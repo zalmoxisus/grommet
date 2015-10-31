@@ -3,8 +3,7 @@
 'use strict';
 
 var React = require('react');
-var ReactIntl = require('react-intl');
-var FormattedMessage = ReactIntl.FormattedMessage;
+var FormattedMessage = require('../../FormattedMessage');
 
 var Warning = React.createClass({
   displayName: 'Warning',
