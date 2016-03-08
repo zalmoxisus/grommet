@@ -45,6 +45,10 @@ var SMALL_SIZE = 120;
 var THIN_HEIGHT = 72;
 
 var GUTTER_SIZE = 4;
+// We pad the labels here instead of CSS to keep the DOM simple for handling
+// text overflow.
+var LABEL_PAD_VERTICAL = 6;
+var LABEL_PAD_HORIZONTAL = 12;
 
 var Distribution = function (_Component) {
   _inherits(Distribution, _Component);
@@ -94,7 +98,8 @@ var Distribution = function (_Component) {
       // preserve width and height we calculated already
       state.width = this.state.width;
       state.height = this.state.height;
-      this.setState(state, this._layout);
+      // _layout is only needed if the component area changes, just place items
+      this.setState(state, this._placeItems);
     }
   }, {
     key: 'componentWillUnmount',
@@ -132,13 +137,50 @@ var Distribution = function (_Component) {
 
       return {
         allIcons: allIcons,
-        items: null,
         total: total
       };
     }
   }, {
+    key: '_boxRect',
+    value: function _boxRect(itemRect, width, height) {
+      // leave a gutter between items, if we're not at the edge
+      var boxRect = _extends({}, itemRect);
+      if (0 !== boxRect.x && width > boxRect.x + boxRect.width) {
+        boxRect.x += GUTTER_SIZE / 2;
+        boxRect.width -= GUTTER_SIZE;
+      }
+      if (0 !== boxRect.y && height > boxRect.y + boxRect.height) {
+        boxRect.y += GUTTER_SIZE / 2;
+        boxRect.height -= GUTTER_SIZE;
+      }
+      boxRect.width -= GUTTER_SIZE;
+      boxRect.height -= GUTTER_SIZE;
+      // flush the right edge
+      if (boxRect.x + boxRect.width > width - 2 * GUTTER_SIZE) {
+        boxRect.width = width - boxRect.x;
+      }
+      // flush the bottom edge
+      if (boxRect.y + boxRect.height > height - 2 * GUTTER_SIZE) {
+        boxRect.height = height - boxRect.y;
+      }
+      return boxRect;
+    }
+  }, {
+    key: '_labelRect',
+    value: function _labelRect(boxRect) {
+      // pad the labels here to keep the DOM simple w.r.t overflow text
+      var labelRect = _extends({}, boxRect);
+      labelRect.x += LABEL_PAD_HORIZONTAL;
+      labelRect.width -= LABEL_PAD_HORIZONTAL * 2;
+      labelRect.y += LABEL_PAD_VERTICAL;
+      labelRect.height -= LABEL_PAD_VERTICAL * 2;
+      return labelRect;
+    }
+  }, {
     key: '_placeItems',
     value: function _placeItems() {
+      var _this2 = this;
+
       var width = this.state.width;
       var height = this.state.height;
       var areaPer = width * height / this.state.total;
@@ -224,9 +266,14 @@ var Distribution = function (_Component) {
             groupRect.height -= itemRect.height;
           }
 
+          var boxRect = _this2._boxRect(itemRect, width, height);
+          var labelRect = _this2._labelRect(boxRect);
+
           // Save this so we can render the item's box and label
           // in the correct location.
-          items.push({ datum: datum, rect: itemRect });
+
+          items.push({ datum: datum, rect: itemRect,
+            boxRect: boxRect, labelRect: labelRect });
         });
       };
 
@@ -258,10 +305,12 @@ var Distribution = function (_Component) {
 
       var container = this.refs.container;
       var rect = container.getBoundingClientRect();
-      if (rect.width !== this.state.width || rect.height !== this.state.height || !this.state.items) {
+      var width = Math.round(rect.width);
+      var height = Math.round(rect.height);
+      if (width !== this.state.width || height !== this.state.height || !this.state.items) {
         this.setState({
-          width: rect.width,
-          height: rect.height
+          width: width,
+          height: height
         }, this._placeItems);
       }
     }
@@ -337,7 +386,7 @@ var Distribution = function (_Component) {
     }
   }, {
     key: '_renderItemLabel',
-    value: function _renderItemLabel(datum, itemRect, index) {
+    value: function _renderItemLabel(datum, labelRect, index) {
       var labelClasses = [CLASS_ROOT + '__label'];
       if (!datum.icon) {
         labelClasses.push('color-index-' + this._itemColorIndex(datum, index));
@@ -345,10 +394,10 @@ var Distribution = function (_Component) {
       if (datum.icon) {
         labelClasses.push(CLASS_ROOT + '__label--icons');
       }
-      if (itemRect.width < SMALL_SIZE || itemRect.height < SMALL_SIZE) {
+      if (labelRect.width < SMALL_SIZE || labelRect.height < SMALL_SIZE) {
         labelClasses.push(CLASS_ROOT + '__label--small');
       }
-      if (itemRect.height < THIN_HEIGHT) {
+      if (labelRect.height < THIN_HEIGHT) {
         labelClasses.push(CLASS_ROOT + '__label--thin');
       }
 
@@ -362,8 +411,8 @@ var Distribution = function (_Component) {
         'div',
         { key: index, className: labelClasses.join(' '),
           'data-box-index': index, role: 'tab',
-          style: { top: itemRect.y, left: itemRect.x, maxWidth: itemRect.width,
-            maxHeight: itemRect.height },
+          style: { top: labelRect.y, left: labelRect.x, maxWidth: labelRect.width,
+            maxHeight: labelRect.height },
           id: this.props.a11yTitleId + '_item_' + index },
         _react2.default.createElement(
           'span',
@@ -384,26 +433,15 @@ var Distribution = function (_Component) {
     }
   }, {
     key: '_renderItemBox',
-    value: function _renderItemBox(itemRect, colorIndex) {
+    value: function _renderItemBox(boxRect, colorIndex) {
       var boxClasses = [CLASS_ROOT + '__item-box'];
       if (colorIndex) {
         boxClasses.push('color-index-' + colorIndex);
       }
-      var boxRect = _extends({}, itemRect);
-      // leave a gutter between items, if we're not at the edge
-      if (0 !== boxRect.x && this.state.width > boxRect.x + boxRect.width) {
-        boxRect.x += GUTTER_SIZE / 2;
-        boxRect.width -= GUTTER_SIZE;
-      }
-      if (0 !== boxRect.y && this.state.height > boxRect.y + boxRect.height) {
-        boxRect.y += GUTTER_SIZE / 2;
-        boxRect.height -= GUTTER_SIZE;
-      }
 
       return _react2.default.createElement('rect', { className: boxClasses.join(' '),
         x: boxRect.x, y: boxRect.y,
-        width: boxRect.width - GUTTER_SIZE,
-        height: boxRect.height - GUTTER_SIZE });
+        width: boxRect.width, height: boxRect.height });
     }
   }, {
     key: '_renderItemIcon',
@@ -475,19 +513,19 @@ var Distribution = function (_Component) {
   }, {
     key: '_renderBoxes',
     value: function _renderBoxes() {
-      var _this2 = this;
+      var _this3 = this;
 
       return this.state.items.map(function (item, index) {
-        return _this2._renderItem(item.datum, item.rect, index);
+        return _this3._renderItem(item.datum, item.boxRect, index);
       }, this);
     }
   }, {
     key: '_renderLabels',
     value: function _renderLabels() {
-      var _this3 = this;
+      var _this4 = this;
 
       return this.state.items.map(function (item, index) {
-        return _this3._renderItemLabel(item.datum, item.rect, index);
+        return _this4._renderItemLabel(item.datum, item.labelRect, index);
       }, this);
     }
   }, {
