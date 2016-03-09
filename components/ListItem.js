@@ -76,7 +76,7 @@ var ListItem = function (_Component) {
         children = this.props.children;
       }
 
-      var boxProps = _Props2.default.pick(this.props, _Box2.default);
+      var boxProps = _Props2.default.pick(this.props, Object.keys(_Box2.default.propTypes));
 
       return _react2.default.createElement(
         _Box2.default,

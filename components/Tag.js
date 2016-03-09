@@ -16,13 +16,9 @@ var _Anchor = require('./Anchor');
 
 var _Anchor2 = _interopRequireDefault(_Anchor);
 
-var _pick = require('lodash/object/pick');
+var _Props = require('../utils/Props');
 
-var _pick2 = _interopRequireDefault(_pick);
-
-var _keys = require('lodash/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
+var _Props2 = _interopRequireDefault(_Props);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52,7 +48,7 @@ var Tag = function (_Component) {
         classes.push(this.props.className);
       }
 
-      var other = (0, _pick2.default)(this.props, (0, _keys2.default)(_Anchor2.default.propTypes));
+      var other = _Props2.default.pick(this.props, Object.keys(_Anchor2.default.propTypes));
 
       return _react2.default.createElement(
         'div',

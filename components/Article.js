@@ -16,14 +16,6 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _pick = require('lodash/object/pick');
-
-var _pick2 = _interopRequireDefault(_pick);
-
-var _keys = require('lodash/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
-
 var _Box = require('./Box');
 
 var _Box2 = _interopRequireDefault(_Box);
@@ -31,6 +23,10 @@ var _Box2 = _interopRequireDefault(_Box);
 var _KeyboardAccelerators = require('../utils/KeyboardAccelerators');
 
 var _KeyboardAccelerators2 = _interopRequireDefault(_KeyboardAccelerators);
+
+var _Props = require('../utils/Props');
+
+var _Props2 = _interopRequireDefault(_Props);
 
 var _Scroll = require('../utils/Scroll');
 
@@ -292,7 +288,7 @@ var Article = function (_Component) {
     key: 'render',
     value: function render() {
       var classes = [CLASS_ROOT];
-      var other = (0, _pick2.default)(this.props, (0, _keys2.default)(_Box2.default.propTypes));
+      var other = _Props2.default.pick(this.props, Object.keys(_Box2.default.propTypes));
       if (this.props.scrollStep) {
         classes.push(CLASS_ROOT + '--scroll-step');
       }

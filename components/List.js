@@ -12,10 +12,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactIntl = require('react-intl');
 
-var _isEqual = require('lodash/lang/isEqual');
-
-var _isEqual2 = _interopRequireDefault(_isEqual);
-
 var _Spinning = require('./icons/Spinning');
 
 var _Spinning2 = _interopRequireDefault(_Spinning);
@@ -191,7 +187,7 @@ var List = function (_Component2) {
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps, prevState) {
-      if (!(0, _isEqual2.default)(this.state.selected, prevState.selected)) {
+      if (JSON.stringify(this.state.selected) !== JSON.stringify(prevState.selected)) {
         this._setSelection();
       }
       if (this.props.onMore && !this._scroll) {

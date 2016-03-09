@@ -1,22 +1,20 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _pick2 = require('lodash/object/pick');
-
-var _pick3 = _interopRequireDefault(_pick2);
-
-var _keys = require('lodash/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+// (C) Copyright 2014-2015 Hewlett Packard Enterprise Development LP
 
 exports.default = {
-  pick: function pick(props, comp) {
-    return (0, _pick3.default)(props, (0, _keys2.default)(comp.propTypes));
+  pick: function pick(props, fields) {
+    var has = function has(p) {
+      return props.hasOwnProperty(p);
+    };
+    var obj = {};
+    (fields || []).forEach(function (field) {
+      if (has(field)) obj[field] = props[field];
+    });
+    return obj;
   }
 };
 module.exports = exports['default'];

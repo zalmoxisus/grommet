@@ -12,13 +12,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pick = require('lodash/object/pick');
+var _Props = require('../utils/Props');
 
-var _pick2 = _interopRequireDefault(_pick);
-
-var _keys = require('lodash/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
+var _Props2 = _interopRequireDefault(_Props);
 
 var _Box = require('./Box');
 
@@ -47,7 +43,7 @@ var Tile = function (_Component) {
     key: 'render',
     value: function render() {
       var classes = [CLASS_ROOT];
-      var other = (0, _pick2.default)(this.props, (0, _keys2.default)(_Box2.default.propTypes));
+      var other = _Props2.default.pick(this.props, Object.keys(_Box2.default.propTypes));
       if (this.props.status) {
         classes.push(CLASS_ROOT + "--status-" + this.props.status.toLowerCase());
       }

@@ -14,10 +14,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _keys = require('lodash/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
-
 var _KeyboardAccelerators = require('../utils/KeyboardAccelerators');
 
 var _KeyboardAccelerators2 = _interopRequireDefault(_KeyboardAccelerators);
@@ -81,7 +77,7 @@ var Box = function (_Component) {
         if (typeof choice === 'string') {
           classes.push(prefix + '--' + propertyPrefix + '-' + choice);
         } else if ((typeof choice === 'undefined' ? 'undefined' : _typeof(choice)) === 'object') {
-          (0, _keys2.default)(choice).forEach(function (key) {
+          Object.keys(choice).forEach(function (key) {
             classes.push(prefix + '--' + propertyPrefix + '-' + key + '-' + choice[key]);
           });
         } else {

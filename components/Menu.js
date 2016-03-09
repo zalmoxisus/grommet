@@ -20,10 +20,6 @@ var _classnames3 = require('classnames');
 
 var _classnames4 = _interopRequireDefault(_classnames3);
 
-var _isFunction = require('lodash/lang/isFunction');
-
-var _isFunction2 = _interopRequireDefault(_isFunction);
-
 var _KeyboardAccelerators = require('../utils/KeyboardAccelerators');
 
 var _KeyboardAccelerators2 = _interopRequireDefault(_KeyboardAccelerators);
@@ -75,6 +71,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // (C) Copyright 2014-2015 Hewlett Packard Enterprise Development LP
 
 var CLASS_ROOT = 'menu';
+
+function isFunction(obj) {
+  return obj && obj.constructor && obj.call && obj.apply;
+}
 
 // We have a separate module for the drop component
 // so we can transfer the router context.
@@ -240,14 +240,14 @@ var MenuDrop = function (_Component) {
       var id = _props.id;
       var onClick = _props.onClick;
 
-      var boxProps = _Props2.default.pick(this.props, _Box2.default);
+      var boxProps = _Props2.default.pick(this.props, Object.keys(_Box2.default.propTypes));
 
       delete boxProps.onClick;
 
       // Put nested Menus inline
       var children = _react2.default.Children.map(this.props.children, function (child) {
         var result = child;
-        if (child && (0, _isFunction2.default)(child.type) && child.type.prototype._renderMenuDrop) {
+        if (child && isFunction(child.type) && child.type.prototype._renderMenuDrop) {
           result = _react2.default.cloneElement(child, { inline: 'explode', direction: 'column' });
         }
         return result;
@@ -488,7 +488,7 @@ var Menu = function (_Component2) {
         this._renderControlContents()
       );
 
-      var boxProps = _Props2.default.pick(this.props, _Box2.default);
+      var boxProps = _Props2.default.pick(this.props, Object.keys(_Box2.default.propTypes));
       var onClick = this.props.closeOnClick ? this._onClose : this._onSink;
 
       return _react2.default.createElement(
@@ -510,7 +510,7 @@ var Menu = function (_Component2) {
       var classes = (0, _classnames4.default)(CLASS_ROOT, this.props.className, (_classnames2 = {}, _defineProperty(_classnames2, CLASS_ROOT + '--' + this.props.direction, this.props.direction), _defineProperty(_classnames2, CLASS_ROOT + '--' + this.props.size, this.props.size), _defineProperty(_classnames2, CLASS_ROOT + '--primary', this.props.primary), _defineProperty(_classnames2, CLASS_ROOT + '--inline', this.state.inline), _defineProperty(_classnames2, CLASS_ROOT + '--explode', 'explode' === this.state.inline), _defineProperty(_classnames2, CLASS_ROOT + '--controlled', !this.state.inline), _defineProperty(_classnames2, CLASS_ROOT + '__control', !this.state.inline), _defineProperty(_classnames2, CLASS_ROOT + '--labelled', !this.state.inline && this.props.label), _classnames2));
 
       if (this.state.inline) {
-        var boxProps = _Props2.default.pick(this.props, _Box2.default);
+        var boxProps = _Props2.default.pick(this.props, Object.keys(_Box2.default.propTypes));
         var label = undefined;
         if ('explode' === this.state.inline) {
           label = _react2.default.createElement(

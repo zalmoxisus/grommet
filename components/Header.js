@@ -16,13 +16,9 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _pick = require('lodash/object/pick');
+var _Props = require('../utils/Props');
 
-var _pick2 = _interopRequireDefault(_pick);
-
-var _keys = require('lodash/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
+var _Props2 = _interopRequireDefault(_Props);
 
 var _Box = require('./Box');
 
@@ -97,7 +93,7 @@ var Header = function (_Component) {
       var classes = [CLASS_ROOT];
       var containerClasses = [CLASS_ROOT + '__container'];
       var wrapperClasses = [CLASS_ROOT + '__wrapper'];
-      var other = (0, _pick2.default)(this.props, (0, _keys2.default)(_Box2.default.propTypes));
+      var other = _Props2.default.pick(this.props, Object.keys(_Box2.default.propTypes));
       if (this.props.fixed) {
         containerClasses.push(CLASS_ROOT + '__container--fixed');
       }

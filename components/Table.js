@@ -14,10 +14,6 @@ var _classnames2 = require('classnames');
 
 var _classnames3 = _interopRequireDefault(_classnames2);
 
-var _isEqual = require('lodash/lang/isEqual');
-
-var _isEqual2 = _interopRequireDefault(_isEqual);
-
 var _Spinning = require('./icons/Spinning');
 
 var _Spinning2 = _interopRequireDefault(_Spinning);
@@ -100,7 +96,7 @@ var Table = function (_Component) {
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps, prevState) {
-      if (!(0, _isEqual2.default)(this.state.selected, prevState.selected)) {
+      if (JSON.stringify(this.state.selected) !== JSON.stringify(prevState.selected)) {
         this._setSelection();
       }
       if (this.state.rebuildMirror && !this.state.small) {

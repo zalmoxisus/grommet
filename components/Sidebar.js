@@ -52,7 +52,7 @@ var Sidebar = function (_Component) {
 
       var classes = (0, _classnames3.default)(CLASS_ROOT, this.props.className, (_classnames = {}, _defineProperty(_classnames, CLASS_ROOT + '--primary', this.props.primary), _defineProperty(_classnames, CLASS_ROOT + '--fixed', this.props.fixed), _defineProperty(_classnames, CLASS_ROOT + '--' + this.props.size, this.props.size), _classnames));
 
-      var boxProps = _Props2.default.pick(this.props, _Box2.default);
+      var boxProps = _Props2.default.pick(this.props, Object.keys(_Box2.default.propTypes));
 
       return _react2.default.createElement(
         _Box2.default,

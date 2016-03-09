@@ -63,7 +63,7 @@ var Footer = function (_Component) {
         footerSkipLink = _react2.default.createElement(_SkipLinkAnchor2.default, { label: 'Footer' });
       }
 
-      var boxProps = _Props2.default.pick(this.props, _Box2.default);
+      var boxProps = _Props2.default.pick(this.props, Object.keys(_Box2.default.propTypes));
 
       return _react2.default.createElement(
         _Box2.default,

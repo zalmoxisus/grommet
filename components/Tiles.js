@@ -14,17 +14,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = require('react-dom');
 
-var _isEqual = require('lodash/lang/isEqual');
+var _Props = require('../utils/Props');
 
-var _isEqual2 = _interopRequireDefault(_isEqual);
-
-var _pick = require('lodash/object/pick');
-
-var _pick2 = _interopRequireDefault(_pick);
-
-var _keys = require('lodash/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
+var _Props2 = _interopRequireDefault(_Props);
 
 var _Box = require('./Box');
 
@@ -121,7 +113,7 @@ var Tiles = function (_Component) {
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps, prevState) {
-      if (!(0, _isEqual2.default)(this.state.selected, prevState.selected)) {
+      if (JSON.stringify(this.state.selected) !== JSON.stringify(prevState.selected)) {
         this._setSelection();
       }
       if (this.props.onMore && !this._scroll) {
@@ -276,7 +268,7 @@ var Tiles = function (_Component) {
         classes.push(this.props.className);
       }
 
-      var other = (0, _pick2.default)(this.props, (0, _keys2.default)(_Box2.default.propTypes));
+      var other = _Props2.default.pick(this.props, Object.keys(_Box2.default.propTypes));
 
       var more = null;
       if (this.props.onMore) {
