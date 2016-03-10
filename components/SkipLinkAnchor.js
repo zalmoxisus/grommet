@@ -34,7 +34,7 @@ var SkipLinkAnchor = function (_Component) {
 
       return _react2.default.createElement(
         'a',
-        { tabIndex: '-1', id: id, className: 'skip-link-anchor' },
+        { tabIndex: '-1', 'aria-hidden': 'true', id: id, className: 'skip-link-anchor' },
         this.props.label
       );
     }
