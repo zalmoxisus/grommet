@@ -122,7 +122,7 @@ var Box = function (_Component) {
       if (this.props.onClick) {
         classes.push(CLASS_ROOT + "--clickable");
         if (this.props.focusable) {
-          var boxLabel = _Intl2.default.getMessage(this.context.intl, this.props.a11yTitle);
+          var boxLabel = this.props.a11yTitle || _Intl2.default.getMessage(this.context.intl, 'Box');
           a11yProps.tabIndex = 0;
           a11yProps["aria-label"] = boxLabel;
           a11yProps.role = this.props.role || 'link';
@@ -229,7 +229,6 @@ Box.contextTypes = {
 };
 
 Box.defaultProps = {
-  a11yTitle: 'Box',
   direction: 'column',
   pad: 'none',
   tag: 'div',

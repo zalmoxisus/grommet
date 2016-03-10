@@ -51,7 +51,7 @@ var Title = function (_Component) {
         classes.push(this.props.className);
       }
 
-      var a11yTitle = _Intl2.default.getMessage(this.context.intl, this.props.a11yTitle);
+      var a11yTitle = this.props.a11yTitle || _Intl2.default.getMessage(this.context.intl, 'Title');
 
       return _react2.default.createElement(
         _Box2.default,
@@ -79,7 +79,6 @@ Title.contextTypes = {
 };
 
 Title.defaultProps = {
-  responsive: true,
-  a11yTitle: 'Title'
+  responsive: true
 };
 module.exports = exports['default'];

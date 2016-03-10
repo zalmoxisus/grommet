@@ -52,36 +52,12 @@ var ListItem = function (_Component) {
 
       var classes = (0, _classnames3.default)(CLASS_ROOT, this.props.className, (_classnames = {}, _defineProperty(_classnames, CLASS_ROOT + '--selected', this.props.selected), _defineProperty(_classnames, CLASS_ROOT + '--selectable', this.props.onClick), _classnames));
 
-      var children = undefined;
-
-      if (this.props.label) {
-        var image = undefined;
-        if (this.props.image) {
-          image = _react2.default.createElement(
-            'span',
-            { className: CLASS_ROOT + '__image' },
-            this.props.image
-          );
-        }
-        children = [image, _react2.default.createElement(
-          'span',
-          { key: 'label', className: CLASS_ROOT + '__label' },
-          this.props.label
-        ), _react2.default.createElement(
-          'span',
-          { key: 'annotation', className: CLASS_ROOT + '__annotation' },
-          this.props.annotation
-        )];
-      } else {
-        children = this.props.children;
-      }
-
       var boxProps = _Props2.default.pick(this.props, Object.keys(_Box2.default.propTypes));
 
       return _react2.default.createElement(
         _Box2.default,
-        _extends({}, boxProps, { tag: 'li', className: classes, onClick: this.props.onClick }),
-        children
+        _extends({}, boxProps, { tag: 'li', className: classes }),
+        this.props.children
       );
     }
   }]);
@@ -93,14 +69,8 @@ exports.default = ListItem;
 ;
 
 ListItem.propTypes = _extends({
-  onClick: _react.PropTypes.func,
   selected: _react.PropTypes.bool
-}, _Box2.default.propTypes, {
-  // deprecated properties
-  annotation: _react.PropTypes.node,
-  image: _react.PropTypes.node,
-  label: _react.PropTypes.node
-});
+}, _Box2.default.propTypes);
 
 ListItem.defaultProps = {
   align: 'center',

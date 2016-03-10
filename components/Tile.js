@@ -43,7 +43,7 @@ var Tile = function (_Component) {
     key: 'render',
     value: function render() {
       var classes = [CLASS_ROOT];
-      var other = _Props2.default.pick(this.props, Object.keys(_Box2.default.propTypes));
+      var boxProps = _Props2.default.pick(this.props, Object.keys(_Box2.default.propTypes));
       if (this.props.status) {
         classes.push(CLASS_ROOT + "--status-" + this.props.status.toLowerCase());
       }
@@ -62,8 +62,7 @@ var Tile = function (_Component) {
 
       return _react2.default.createElement(
         _Box2.default,
-        _extends({ className: classes.join(' ') }, other, {
-          onClick: this.props.onClick, a11yTitle: this.props.a11yTitle }),
+        _extends({}, boxProps, { className: classes.join(' ') }),
         this.props.children
       );
     }
@@ -75,9 +74,7 @@ var Tile = function (_Component) {
 exports.default = Tile;
 
 Tile.propTypes = _extends({
-  onClick: _react.PropTypes.func,
   selected: _react.PropTypes.bool,
-  status: _react.PropTypes.string, // deprecated, will be removed
   wide: _react.PropTypes.bool
 }, _Box2.default.propTypes);
 
