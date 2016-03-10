@@ -41,12 +41,6 @@ var Headline = function (_Component) {
       var _classnames;
 
       var classes = (0, _classnames3.default)(CLASS_ROOT, (_classnames = {}, _defineProperty(_classnames, CLASS_ROOT + '--' + this.props.size, this.props.size), _defineProperty(_classnames, CLASS_ROOT + '--align-' + this.props.align, this.props.align), _defineProperty(_classnames, CLASS_ROOT + '--margin-' + this.props.margin, this.props.margin), _defineProperty(_classnames, CLASS_ROOT + '--strong', this.props.strong), _classnames), this.props.className);
-      if (this.props.large) {
-        console.warn('The "large" property of Headline is deprecated. Use size="large" instead.');
-      }
-      if (this.props.small) {
-        console.warn('The "small" property of Headline is deprecated. Use size="small" instead.');
-      }
 
       return _react2.default.createElement(
         'div',
