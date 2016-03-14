@@ -99,7 +99,8 @@ var MenuDrop = function (_Component) {
       return {
         intl: this.props.intl,
         history: this.props.history,
-        router: this.props.router
+        router: this.props.router,
+        store: this.props.store
       };
     }
   }, {
@@ -285,13 +286,15 @@ MenuDrop.propTypes = _extends({}, _Box2.default.propTypes, {
   id: _react.PropTypes.string.isRequired,
   onClick: _react.PropTypes.func.isRequired,
   router: _react.PropTypes.any,
-  size: _react.PropTypes.oneOf(['small', 'medium', 'large'])
+  size: _react.PropTypes.oneOf(['small', 'medium', 'large']),
+  store: _react.PropTypes.any
 });
 
 MenuDrop.childContextTypes = {
   intl: _react.PropTypes.any,
   history: _react.PropTypes.any,
-  router: _react.PropTypes.any
+  router: _react.PropTypes.any,
+  store: _react.PropTypes.any
 };
 
 var Menu = function (_Component2) {
@@ -572,7 +575,8 @@ Menu.propTypes = _extends({
 Menu.contextTypes = {
   intl: _react.PropTypes.any,
   history: _react.PropTypes.any,
-  router: _react.PropTypes.any
+  router: _react.PropTypes.any,
+  store: _react.PropTypes.any
 };
 
 Menu.defaultProps = {

@@ -62,9 +62,9 @@ var LayerContents = function (_Component) {
     key: 'getChildContext',
     value: function getChildContext() {
       return {
-        router: this.props.router,
         history: this.props.history,
         intl: this.props.intl,
+        router: this.props.router,
         store: this.props.store
       };
     }
@@ -164,7 +164,8 @@ LayerContents.propTypes = {
   history: _react.PropTypes.object,
   intl: _react.PropTypes.object,
   onClose: _react.PropTypes.func,
-  router: _react.PropTypes.any
+  router: _react.PropTypes.any,
+  store: _react.PropTypes.any
 };
 
 // Because Layer creates a new DOM render context, the context
@@ -173,9 +174,9 @@ LayerContents.propTypes = {
 // whatever we find or have callers explicitly indicate which parts
 // of the context to transfer somehow.
 LayerContents.childContextTypes = {
-  router: _react.PropTypes.any,
   history: _react.PropTypes.object,
   intl: _react.PropTypes.object,
+  router: _react.PropTypes.any,
   store: _react.PropTypes.object
 };
 
@@ -262,9 +263,9 @@ var Layer = function (_Component2) {
     value: function _renderLayer() {
       this._element.className = this._classesFromProps().join(' ');
       var contents = _react2.default.createElement(LayerContents, _extends({}, this.props, {
-        router: this.context.router,
         history: this.context.history,
         intl: this.context.intl,
+        router: this.context.router,
         store: this.context.store }));
       _reactDom2.default.render(contents, this._element);
       this._handleAriaHidden(this.props.hidden);
