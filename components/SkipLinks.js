@@ -66,6 +66,8 @@ var SkipLinks = function (_Component) {
         tab: this._processTab
       };
       _KeyboardAccelerators2.default.startListeningToKeyboard(this, this._keyboardHandlers);
+
+      document.addEventListener('DOMNodeInserted', this._updateAnchors);
     }
   }, {
     key: 'componentWillReceiveProps',
@@ -83,6 +85,7 @@ var SkipLinks = function (_Component) {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       _KeyboardAccelerators2.default.stopListeningToKeyboard(this, this._keyboardHandlers);
+      document.removeEventListener('DOMNodeInserted', this._updateAnchors);
     }
   }, {
     key: '_updateAnchors',
