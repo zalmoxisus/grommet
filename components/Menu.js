@@ -239,9 +239,11 @@ var MenuDrop = function (_Component) {
       var size = _props.size;
       var control = _props.control;
       var id = _props.id;
+      var colorIndex = _props.colorIndex;
       var onClick = _props.onClick;
 
       var boxProps = _Props2.default.pick(this.props, Object.keys(_Box2.default.propTypes));
+      delete boxProps.colorIndex; // manage colorIndex at the outer menuDrop element
 
       delete boxProps.onClick;
 
@@ -269,8 +271,8 @@ var MenuDrop = function (_Component) {
       var classes = (0, _classnames4.default)(CLASS_ROOT + '__drop', (_classnames = {}, _defineProperty(_classnames, CLASS_ROOT + '__drop--align-right', dropAlign.right), _defineProperty(_classnames, CLASS_ROOT + '__drop--' + size, size), _classnames));
 
       return _react2.default.createElement(
-        'div',
-        { ref: 'menuDrop', id: id, className: classes,
+        _Box2.default,
+        { ref: 'menuDrop', id: id, className: classes, colorIndex: colorIndex,
           onClick: onClick },
         contents
       );
