@@ -448,17 +448,22 @@ var Meter = function (_Component) {
       }
 
       var minMax = this._renderMinMax(classes);
-
       var activeValue = this._renderActiveValue();
-
       var legend = undefined;
       var a11yRole = undefined;
+
       if (this.props.legend || this.props.series) {
         a11yRole = 'tablist';
 
         if (this.props.legend) {
           if ('inline' !== this.props.legend.placement) {
             legend = this._renderLegend();
+          } else {
+            // Hide value (displaying total), if legend is inline
+            // and total is set to false
+            if (!this.props.legend.total) {
+              activeValue = null;
+            }
           }
           classes.push(CLASS_ROOT + '--legend-' + this.state.legendPlacement);
         }
