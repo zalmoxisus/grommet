@@ -466,6 +466,9 @@ var Meter = function (_Component) {
             }
           }
           classes.push(CLASS_ROOT + '--legend-' + this.state.legendPlacement);
+          if (this.props.legend.align) {
+            classes.push(CLASS_ROOT + '--legend-align-' + this.props.legend.align);
+          }
         }
       }
 
@@ -523,8 +526,9 @@ Meter.propTypes = {
   a11yDesc: _react.PropTypes.string,
   important: _react.PropTypes.number,
   legend: _react.PropTypes.oneOfType([_react.PropTypes.bool, _react.PropTypes.shape({
-    total: _react.PropTypes.bool,
-    placement: _react.PropTypes.oneOf(['right', 'bottom', 'inline'])
+    align: _react.PropTypes.oneOf(['start', 'center', 'end']),
+    placement: _react.PropTypes.oneOf(['right', 'bottom', 'inline']),
+    total: _react.PropTypes.bool
   })]),
   max: _react.PropTypes.oneOfType([_react.PropTypes.shape({
     value: _react.PropTypes.number.isRequired,
