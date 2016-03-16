@@ -14,6 +14,10 @@ var _classnames2 = require('classnames');
 
 var _classnames3 = _interopRequireDefault(_classnames2);
 
+var _Label = require('./Label');
+
+var _Label2 = _interopRequireDefault(_Label);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -41,12 +45,33 @@ var Image = function (_Component) {
       var _classnames;
 
       var _props = this.props;
-      var size = _props.size;
+      var caption = _props.caption;
+      var className = _props.className;
       var full = _props.full;
+      var id = _props.id;
+      var size = _props.size;
+      var src = _props.src;
 
-      var classes = (0, _classnames3.default)(CLASS_ROOT, this.props.className, (_classnames = {}, _defineProperty(_classnames, CLASS_ROOT + '--' + size, size), _defineProperty(_classnames, CLASS_ROOT + '--full', typeof full === 'boolean' && full), _defineProperty(_classnames, CLASS_ROOT + '--full-' + full, typeof full === 'string'), _classnames));
+      var classes = (0, _classnames3.default)(CLASS_ROOT, className, (_classnames = {}, _defineProperty(_classnames, CLASS_ROOT + '--' + size, size), _defineProperty(_classnames, CLASS_ROOT + '--full', typeof full === 'boolean' && full), _defineProperty(_classnames, CLASS_ROOT + '--full-' + full, typeof full === 'string'), _classnames));
 
-      return _react2.default.createElement('img', { id: this.props.id, className: classes, src: this.props.src });
+      var figcaption = undefined;
+      if (caption) {
+        figcaption = _react2.default.createElement(
+          'figcaption',
+          { className: CLASS_ROOT + '__caption' },
+          _react2.default.createElement(
+            _Label2.default,
+            null,
+            caption
+          )
+        );
+      }
+      return _react2.default.createElement(
+        'figure',
+        { className: classes },
+        _react2.default.createElement('img', { id: id, src: src, className: CLASS_ROOT + '__image' }),
+        figcaption
+      );;
     }
   }]);
 
@@ -56,9 +81,16 @@ var Image = function (_Component) {
 exports.default = Image;
 ;
 
+Image.defaultProps = {
+  size: 'medium'
+};
+
 Image.propTypes = {
+  caption: _react.PropTypes.string,
+  className: _react.PropTypes.string,
   full: _react.PropTypes.oneOf([true, 'horizontal', 'vertical', false]),
-  src: _react.PropTypes.string,
-  size: _react.PropTypes.oneOf(['small', 'medium', 'large', 'thumb'])
+  id: _react.PropTypes.string,
+  size: _react.PropTypes.oneOf(['small', 'medium', 'large', 'thumb']),
+  src: _react.PropTypes.string
 };
 module.exports = exports['default'];
