@@ -52,11 +52,13 @@ var Image = function (_Component) {
       var size = _props.size;
       var src = _props.src;
 
-      var classes = (0, _classnames3.default)(CLASS_ROOT, className, (_classnames = {}, _defineProperty(_classnames, CLASS_ROOT + '--' + size, size), _defineProperty(_classnames, CLASS_ROOT + '--full', typeof full === 'boolean' && full), _defineProperty(_classnames, CLASS_ROOT + '--full-' + full, typeof full === 'string'), _classnames));
+      var classes = (0, _classnames3.default)(CLASS_ROOT, (_classnames = {}, _defineProperty(_classnames, CLASS_ROOT + '--' + size, size), _defineProperty(_classnames, CLASS_ROOT + '--full', typeof full === 'boolean' && full), _defineProperty(_classnames, CLASS_ROOT + '--full-' + full, typeof full === 'string'), _classnames), className);
 
-      var figcaption = undefined;
-      if (caption) {
-        figcaption = _react2.default.createElement(
+      return caption ? _react2.default.createElement(
+        'figure',
+        { className: classes },
+        _react2.default.createElement('img', { id: id, src: src, className: CLASS_ROOT + '__image' }),
+        _react2.default.createElement(
           'figcaption',
           { className: CLASS_ROOT + '__caption' },
           _react2.default.createElement(
@@ -64,14 +66,8 @@ var Image = function (_Component) {
             null,
             caption
           )
-        );
-      }
-      return _react2.default.createElement(
-        'figure',
-        { className: classes },
-        _react2.default.createElement('img', { id: id, src: src, className: CLASS_ROOT + '__image' }),
-        figcaption
-      );;
+        )
+      ) : _react2.default.createElement('img', { id: id, src: src, className: classes });
     }
   }]);
 
@@ -81,10 +77,6 @@ var Image = function (_Component) {
 exports.default = Image;
 ;
 
-Image.defaultProps = {
-  size: 'medium'
-};
-
 Image.propTypes = {
   caption: _react.PropTypes.string,
   className: _react.PropTypes.string,
@@ -92,5 +84,9 @@ Image.propTypes = {
   id: _react.PropTypes.string,
   size: _react.PropTypes.oneOf(['small', 'medium', 'large', 'thumb']),
   src: _react.PropTypes.string
+};
+
+Image.defaultProps = {
+  size: 'medium'
 };
 module.exports = exports['default'];

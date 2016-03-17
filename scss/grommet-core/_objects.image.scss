@@ -3,7 +3,7 @@
 .image {
 
   max-width: 100%;
-  
+
   &--medium {
     width: $image-width;
   }
@@ -41,8 +41,7 @@
   }
 
   &__caption {
-    display: flex;
-    justify-content: center;
+    text-align: center;
     padding: halve($inuit-base-spacing-unit);
   }
 }
