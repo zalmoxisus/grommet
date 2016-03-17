@@ -42,9 +42,11 @@ var Paragraph = function (_Component) {
 
       var classes = (0, _classnames3.default)(CLASS_ROOT, this.props.className, (_classnames = {}, _defineProperty(_classnames, CLASS_ROOT + '--' + this.props.size, this.props.size), _defineProperty(_classnames, CLASS_ROOT + '--align-' + this.props.align, this.props.align), _defineProperty(_classnames, CLASS_ROOT + '--margin-' + this.props.margin, this.props.margin), _classnames));
 
+      // we handle dangerouslySetInnerHTML to allow using Paragraph with Markdown.
       return _react2.default.createElement(
         'p',
-        { id: this.props.id, className: classes },
+        { id: this.props.id, className: classes,
+          dangerouslySetInnerHTML: this.props.dangerouslySetInnerHTML },
         this.props.children
       );
     }

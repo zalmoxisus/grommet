@@ -49,14 +49,12 @@ var Heading = function (_Component) {
         classes.push(this.props.className);
       }
 
+      // we handle dangerouslySetInnerHTML to allow using Heading with Markdown.
       return _react2.default.createElement(
         this.props.tag,
-        { className: classes.join(' ') },
-        _react2.default.createElement(
-          'span',
-          null,
-          this.props.children
-        )
+        { id: this.props.id, className: classes.join(' '),
+          dangerouslySetInnerHTML: this.props.dangerouslySetInnerHTML },
+        this.props.children
       );
     }
   }]);
